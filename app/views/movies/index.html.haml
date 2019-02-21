@@ -4,7 +4,7 @@
 %table#movies
   %thead
     %tr
-      %th{if params[:order_by] == 'title' :class => :hilite}
+      %th{(if params[:order_by] == 'title' :class => :hilite)}
       = link_to 'Movie Title', movies_path(:order_by => :title), :id => :title_header
       %th Rating
       %th Release Date
