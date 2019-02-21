@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     if params[:order_by] == 'title'
-      Movie.order('title')
+      @movies.order('title')
     end
   end
 
