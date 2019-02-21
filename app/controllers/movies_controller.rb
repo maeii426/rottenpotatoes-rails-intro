@@ -12,9 +12,9 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-    if params[:order_by] == 'title'
-      @movies.order!('title')
-      flash[:notice] = 'um'
+    if params[:order_by] != session[:order_by]
+      @movies.order!(params[:order_by])
+      session[:order_by] = params[:order_by] # HOW?: restrict the possible values of :order_by to only the column names?
     end
   end
 
