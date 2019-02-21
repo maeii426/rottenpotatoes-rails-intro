@@ -12,7 +12,6 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-    flash[:notice] = params[:order_by], session[:order_by]
     if params[:order_by] != session[:order_by]
       @movies.order!(params[:order_by])
       #@movies.update()                         # WHEN?: should I save the order to the database??
@@ -21,6 +20,7 @@ class MoviesController < ApplicationController
       @movies.order!(params[:order_by]).reverse_order!
       session[:order_by] = nil
     end
+    flash[:notice] = params[:order_by], session[:order_by]
   end
 
   def new
