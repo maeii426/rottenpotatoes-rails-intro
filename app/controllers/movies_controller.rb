@@ -14,6 +14,7 @@ class MoviesController < ApplicationController
     @movies = Movie.all
     if params[:order_by] == 'title'
       Movie.order('title')
+      flash[:notice] = 'um'
     end
   end
 
