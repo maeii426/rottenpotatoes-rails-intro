@@ -18,7 +18,8 @@ class MoviesController < ApplicationController
       #@movies.update()                         # WHEN?: should I save the order to the database??
       session[:order_by] = params[:order_by]
     elsif params[:order_by] == session[:order_by]
-      @movies.order!(params[:order_by]).reverse_order
+      @movies.order!(params[:order_by]).reverse_order!
+      session[:order_by] = nil
     end
   end
 
