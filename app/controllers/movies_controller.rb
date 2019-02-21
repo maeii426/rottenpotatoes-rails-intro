@@ -12,7 +12,7 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-    if params[:order_by] = 'title'
+    if params[:order_by] == 'title'
       flash[:notice] = 'um'
     end
   end
