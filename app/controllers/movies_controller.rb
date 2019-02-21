@@ -1,7 +1,7 @@
 class MoviesController < ApplicationController
 
   def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date)
+    params.require(:movie).permit(:title, :rating, :description, :release_date, :order_by)
   end
 
   def show
@@ -12,7 +12,9 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
-    flash[:notice] = "um"
+    if params[:order_by] = 'title'
+      flash[:notice] = 'um'
+    end
   end
 
   def new
