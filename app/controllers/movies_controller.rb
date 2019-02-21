@@ -15,9 +15,10 @@ class MoviesController < ApplicationController
     flash[:notice] = params[:order_by], session[:order_by]
     if params[:order_by] != session[:order_by]
       @movies.order!(params[:order_by])
+      @movies.save!()
       session[:order_by] = params[:order_by] # HOW?: restrict the possible values of :order_by to only the column names?
     elsif params[:order_by] == session[:order_by]
-      @movies.reverse_order!(params[:order_by])
+      @movies.reverse_order!()
     end
   end
 
