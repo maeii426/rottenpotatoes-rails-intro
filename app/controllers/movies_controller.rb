@@ -15,6 +15,8 @@ class MoviesController < ApplicationController
     if params[:order_by] != session[:order_by]
       @movies.order!(params[:order_by])
       session[:order_by] = params[:order_by] # HOW?: restrict the possible values of :order_by to only the column names?
+    elsif params[:order_by] == session[:order_by]
+      @movies.reverse_order!()
     end
   end
 
