@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.all
     @all_ratings = Movie.all_ratings
-    
+    flash[:notice] = @all_ratings
     # Handle ordering
     if params[:order_by] != session[:order_by]
       @movies.order!(params[:order_by])
