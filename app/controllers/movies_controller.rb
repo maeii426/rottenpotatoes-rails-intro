@@ -1,7 +1,8 @@
 class MoviesController < ApplicationController
 
   def movie_params
-    params.require(:movie).permit(:title, :rating, :description, :release_date, :order_by)
+    params.require(:movie).permit(:title, :rating, :description, :release_date, :order_by, :ratings)
+    @selected_ratings = Movie.all_ratings
   end
 
   def show
@@ -11,16 +12,26 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @movies = Movie.all
-    #@all_ratings = Movie.all_ratings
-    #flash[:notice] = @all_ratings
+    # Handle rating slection
+    if params[:ratings] != nil
+      @movies = Movie.with_ratings(params[:ratings].keys)
+      @selected_ratings = params[:ratings].keys
+    elsif
+      @movies = Movie.all
+      @selected_ratings = Movie.all_ratings
+    end
+   
+    @all_ratings = Movie.all_ratings
+    
     # Handle ordering
-    if params[:order_by] != session[:order_by]
-      @movies.order!(params[:order_by])
-      session[:order_by] = params[:order_by]
-    elsif params[:order_by] == session[:order_by]
-      @movies.order!(params[:order_by]).reverse_order!
-      session[:order_by] = nil
+    if params[:order_by] != nil
+      if params[:order_by] != session[:order_by]
+        @movies.order!(params[:order_by])
+        session[:order_by] = params[:order_by]
+      elsif params[:order_by] == session[:order_by]
+        @movies.order!(params[:order_by]).reverse_order!
+        session[:order_by] = nil
+      end
     end
   end
 
