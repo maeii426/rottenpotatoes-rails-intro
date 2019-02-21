@@ -12,9 +12,11 @@ class MoviesController < ApplicationController
 
   def index
     @movies = Movie.all
+    @all_ratings = Movie.all_ratings
+    
+    # Handle ordering
     if params[:order_by] != session[:order_by]
       @movies.order!(params[:order_by])
-      #@movies.update()                         # WHEN?: should I save the order to the database??
       session[:order_by] = params[:order_by]
     elsif params[:order_by] == session[:order_by]
       @movies.order!(params[:order_by]).reverse_order!
