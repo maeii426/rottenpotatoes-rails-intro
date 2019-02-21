@@ -20,7 +20,6 @@ class MoviesController < ApplicationController
       @movies.order!(params[:order_by]).reverse_order!
       session[:order_by] = nil
     end
-    flash[:notice] = params[:order_by], session[:order_by]
   end
 
   def new
